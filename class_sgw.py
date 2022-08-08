@@ -143,6 +143,7 @@ class SGW(threading.Thread):
 
             if self.ii:
                 print(self.ii)
+                print('eybabababababaaaaaaa')
                 h = self.ebu[self.ii[0][1]]
                 data = {}
                 data['type'] = "Create Session"

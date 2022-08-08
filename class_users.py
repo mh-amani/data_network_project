@@ -276,7 +276,7 @@ class user_f(threading.Thread):
                 data = {}
 
                 data['type'] = "Create Session"
-                data['value'] = (self.id, self.rec)
+                data['value'] = self.id, self.rec
                 x = pickle.dumps(data)
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 s.connect(('127.0.0.1', 6000 + self.ceb))
