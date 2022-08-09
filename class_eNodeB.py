@@ -67,10 +67,9 @@ class eNodeB(threading.Thread):
                     if kc['type'] == 'Handover complete':
                         self.po.append(kc['value'])
 
+
                 if not data1:
                     break
-
-        return
 
     def l_mme(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -96,7 +95,6 @@ class eNodeB(threading.Thread):
                 if not data1:
                     break
 
-        return
 
     def l_data(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -123,7 +121,6 @@ class eNodeB(threading.Thread):
                 if not data1:
                     break
 
-        return
 
     def l_sig(self):
 
@@ -147,8 +144,6 @@ class eNodeB(threading.Thread):
 
                 if not data1:
                     break
-
-        return
 
     def send(self):
 
@@ -305,7 +300,7 @@ class eNodeB(threading.Thread):
                                         data = {}
                                         data['type'] = 'Data Carrier'
                                         data['value'] = hp
-                                        hp = []
+                                        # hp = []
                                         x = pickle.dumps(data)
                                         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                                         s.connect(('127.0.0.1', 4000 + int(data['value'][0][1])))

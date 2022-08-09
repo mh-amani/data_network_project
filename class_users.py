@@ -28,7 +28,7 @@ class user_g(threading.Thread):
 
     def l_sig(self):
 
-        print(f'user {self.id} signal mode')
+        print(f'userg {self.id} signal mode')
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.bind(('127.0.0.1', 3000 + self.id))
         sock.listen(10)
@@ -51,10 +51,7 @@ class user_g(threading.Thread):
                 if not data1:
                     break
 
-        return
-
     def l_data(self):
-        print(f'user {self.id} data mode')
 
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.bind(('127.0.0.1', 4000 + self.id))
@@ -71,20 +68,17 @@ class user_g(threading.Thread):
                 if data1:
 
                     kc = pickle.loads(data1)
-                    print(f'user{self.id} from data-path receiving:      **{kc}**')
+                    print(f'userf {self.id} from data-path receiving:      **{kc}**')
                     if kc['type'] == 'Create Session':
                         self.ack_back.append((kc['value'][0], kc['value'][1]))
 
                     if kc['type'] == 'Data Carrier':
-
                         print('I am ' + str(self.id) + ' i receive from ' + str(kc['value'][0][0]) + '\n')
                         for u in range(len(kc['value'])):
                             print(kc['value'][u][3] + '\n')
 
                 if not data1:
                     break
-
-        return
 
     def send_data(self):
 
@@ -102,8 +96,6 @@ class user_g(threading.Thread):
                 s.connect(('127.0.0.1', 6000 + self.ceb))
                 s.sendall(x)
                 s.close()
-
-        return
 
     def send_loc1(self):
 
@@ -141,8 +133,6 @@ class user_g(threading.Thread):
 
                 if j < len(self.time):
                     time.sleep(self.time[j])
-
-        return
 
     def run1(self):
 
@@ -205,8 +195,6 @@ class user_f(threading.Thread):
         self.p_data = [i + 6000 for i in self.enodbs]
 
     def l_sig(self):
-
-        print(f'user {self.id} signal mode')
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.bind(('127.0.0.1', 3000 + self.id))
         sock.listen(10)
@@ -222,7 +210,7 @@ class user_f(threading.Thread):
                 if data1:
 
                     kc = pickle.loads(data1)
-                    print(f'user{self.id} from signal-path receiving:      **{kc}**')
+                    print(f'userf {self.id} from signal-path receiving:      **{kc}**')
                     if kc['type'] == 'User Registration2':
 
                         self.ceb = kc['value']
@@ -233,15 +221,11 @@ class user_f(threading.Thread):
                 if not data1:
                     break
 
-        return
-
     def l_data(self):
 
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.bind(('127.0.0.1', 4000 + self.id))
         sock.listen(10)
-
-        print(f'user {self.id} data mode')
 
         while True:
 
@@ -254,20 +238,16 @@ class user_f(threading.Thread):
                 if data1:
 
                     kc = pickle.loads(data1)
-                    print(f'user{self.id} from data-path receiving:      **{kc}**')
+                    print(f'userf {self.id} from data-path receiving:      **{kc}**')
                     if kc['type'] == 'Create Session Ack':
                         self.data = 1
 
                 if not data1:
                     break
 
-        return
-
     def send_data(self):
 
         kn = 0
-        print(f'user {self.id} send data mode')
-
         while True:
 
             if self.sack1 == 1 and self.sack2 == 0:

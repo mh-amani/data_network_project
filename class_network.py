@@ -37,18 +37,18 @@ class Network:
     def connection_request(self, sender_id, receiver_id, file_name):
         k1 = [(item[0], item[1], item[2], self.n1, receiver_id, item[3]) for item in self.user if sender_id == item[0]]
         k2 = [(item[0], item[1], item[2], self.n1) for item in self.user if receiver_id == item[0]]
-        if k1:
-            s1 = user_f(k1[0][0], k1[0][1], k1[0][2], k1[0][3], k1[0][4], k1[0][5], file_name)
-            t1 = threading.Thread(target=s1.run1)
-            t1.start()
-            self.thread.append(t1)
-        if k2:
-            s2 = user_g(k2[0][0], k2[0][1], k2[0][2], k2[0][3])
-            t2 = threading.Thread(target=s2.run1)
-            t2.start()
-            self.thread.append(t2)
+        # if k1:
+        s1 = user_f(k1[0][0], k1[0][1], k1[0][2], k1[0][3], k1[0][4], k1[0][5], file_name)
+        t1 = threading.Thread(target=s1.run1)
+        # if k2:
+        s2 = user_g(k2[0][0], k2[0][1], k2[0][2], k2[0][3])
+        t2 = threading.Thread(target=s2.run1)
 
+        t1.start()
+        t2.start()
 
+        self.thread.append(t1)
+        self.thread.append(t2)
 
     def run(self):
         for n in self.thread:
